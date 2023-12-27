@@ -1,0 +1,38 @@
+shell:
+  program: zsh
+  args:
+    - -c
+    - neofetch && exec zsh
+
+env:
+  TERM: xterm-256color
+
+window:
+  opacity: 0.7
+
+scrolling:
+  history: 5000
+
+font:
+  normal:
+    family: JetBrains Mono
+    style: Regular
+  bold:
+    family: JetBrains Mono
+    style: Bold
+  italic:
+    family: JetBrains Mono
+    style: Italic
+  bold_italic:
+    family: JetBrains Mono
+    style: Bold Italic
+  
+  size: 10
+
+
+import:
+  # uncomment the flavour you want below:
+  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
+#  - ~/.config/alacritty/catppuccin/catppuccin-macchiato.yml
+#  - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
+#  - ~/.config/alacritty/catppuccin/catppuccin-latte.yml
