@@ -1,0 +1,66 @@
+set hidden     true
+set drawbox    true
+set icons      false
+set ignorecase false
+
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+#cmd mkdir ${{
+#  printf "Directory Name: "
+#  read ans
+#  mkdir $ans
+#}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *.rar) unrar x "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+# Trash bindings
+cmd trash %trash-put $fx
+
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/*|application/json) $EDITOR "$f";;
+        application/x-executable) "$f";;
+        application/vnd.microsoft.portable-executable) wine "$f";;
+        *) xdg-open "$f" ;;
+    esac
+}}
+
+# Bindings
+map au unarchive
+map ed $EDITOR $(command lf -print-last-dir "$@")
+
+# Basic Functions
+map . set hidden!
+map d
+map dd trash
+map dr restore_trash
+map p paste
+map x cut
+map y copy
+map <enter> open
+map R reload
+map af mkfile
+map ad push :mkdir<space>
+map C clear
+
+# Movement
+map gD cd ~/Documents
+map gd cd ~/Downloads
+map gc cd ~/.config
+map gs cd ~/.local/bin
+map gt cd ~/.local/share/Trash/files
